@@ -20,10 +20,7 @@ if __name__ == "__main__":
     mock_factory = MockFactory()
     led21:MockPin = mock_factory.pin(21)
     led20:MockPin = mock_factory.pin(20)
-    # led21 = LED(21)
-    # led20 = LED(20)
-    
-    
+   
     for _ in range(2):
         led21.drive_high()
         time.sleep(0.002)

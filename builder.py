@@ -12,6 +12,8 @@ class EncoderBuilder:
             "duration": duration, # ms
             "period": period,
         }
+        self._test = False
+
         self.range_type = RangeType.zero_to_period
         self.value_type = ValueType.degree
     
@@ -27,11 +29,17 @@ class EncoderBuilder:
     def set_value_type_radians(self):
         self.value_type = ValueType.radians
     
+    def set_virtual(self):
+        self.settings["virtual"] = True
+    
     def get_encoder(self) -> EncoderInterface:
         self.settings["range_converter"] = range_converter_fabric(self.range_type)
         self.settings["value_converter"] = value_converter_fabric(self.value_type)
         self.encoder_data = EncoderData(**self.settings)
-        return Encoder(self.encoder_data)
+        
+        if not self._test:
+            print(self._test)
+            return Encoder(self.encoder_data)
 
     def get_encoder_settings(self) -> dict:
         return self.encoder_data.dict()

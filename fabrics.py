@@ -7,8 +7,6 @@ from range_converter import (RangeConverterInterface,
                             MinusHalfToHAlfRange,
                             ZeroToPeriodRange)
 
-#ToDo think about builder
-
 class RangeType(Enum):
     minus_half_to_half = 1
     zero_to_period = 2

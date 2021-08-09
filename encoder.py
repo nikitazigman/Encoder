@@ -50,7 +50,6 @@ class Encoder(EncoderInterface):
     """
 
     def __init__(self, encoder_data: EncoderData):
-        print('start')
         if type(encoder_data) is not EncoderData:
             raise TypeError('encoder_data has to have the EncoderData type')
 
@@ -85,7 +84,6 @@ class Encoder(EncoderInterface):
         self._start_timer()
 
     def __del__(self):
-        print('del')
         self._encoder.close()
 
     def _start_timer(self):

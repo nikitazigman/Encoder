@@ -1,11 +1,12 @@
 from enum import  Enum
 
-from value_converter import (DegreeConverter, 
-                            RadianConverter,
-                            ValueConveterInterface)
-from range_converter import (RangeConverterInterface, 
-                            MinusHalfToHAlfRange,
-                            ZeroToPeriodRange)
+if __package__:
+    from .value_converter import DegreeConverter, RadianConverter, ValueConveterInterface
+    from .range_converter import RangeConverterInterface, MinusHalfToHAlfRange, ZeroToPeriodRange
+else:
+    from value_converter import DegreeConverter, RadianConverter, ValueConveterInterface
+    from range_converter import RangeConverterInterface, MinusHalfToHAlfRange, ZeroToPeriodRange
+
 
 class RangeType(Enum):
     minus_half_to_half = 1

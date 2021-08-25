@@ -7,8 +7,13 @@ from gpiozero import RotaryEncoder
 from gpiozero.pins.mock import MockFactory
 from pydantic import BaseModel
 
-from range_converter import RangeConverterInterface
-from value_converter import ValueConveterInterface
+
+if __package__:
+    from .range_converter import RangeConverterInterface
+    from .value_converter import ValueConveterInterface
+else:
+    from range_converter import RangeConverterInterface
+    from value_converter import ValueConveterInterface
 
 
 class EncoderData(BaseModel):
@@ -84,16 +89,16 @@ class Encoder(EncoderInterface):
         self._start_timer()
 
     def __del__(self):
-        self._encoder.close()
-
+        self._lock.acquire()
+        
     def _start_timer(self):
         self._thread = Timer(self._duration, self._timer_callback, args=[time()])
         self._thread.start()
 
     def _timer_callback(self, previous_time: float):
-
+        # print("i'm in thread")
         with self._lock:
-
+            # print("i'm in thread2 ")
             current_position = self._encoder.steps
             current_time = time()
 
@@ -103,6 +108,7 @@ class Encoder(EncoderInterface):
             self._velocity = delta_position/delta_time
 
             self._previous_position = current_position
+
             self._start_timer()
     
     @property
@@ -136,47 +142,3 @@ class Encoder(EncoderInterface):
         return self._value_converter.convert(velocity, self._period_cnt)
 
 
-
-if __name__ == '__main__':
-    from fabrics import ValueType, RangeType, value_converter_fabric, range_converter_fabric
-    from time import time, sleep
-    import threading
-    from gpiozero.pins.mock import MockFactory, MockPin
-
-    settings = {
-        "range_converter": range_converter_fabric(RangeType.minus_half_to_half),
-        "value_converter": value_converter_fabric(ValueType.degree),
-        "pin_a": 20,            
-        "pin_b": 21,
-        "duration": 0.5, # 100 ms
-        "period": 360,
-        "virtual": True,
-    }
-    class_settings = EncoderData(**settings)
-
-    def foo():
-        global class_settings
-        # rotor = RotaryEncoder(21, 20, max_steps=0, pin_factory=MockFactory())
-        encoder = Encoder(class_settings)
-        while True:
-            print(f"{encoder.position=}")
-            print(f"{encoder.velocity=}")
-            print(f"{encoder.direction=}")
-            sleep(0.5)
-
-    thread = threading.Thread(target=foo)
-    thread.start()
-
-    mock_factory = MockFactory()
-    led21:MockPin = mock_factory.pin(21)
-    led20:MockPin = mock_factory.pin(20)
-   
-    while True:
-        led21.drive_high()
-        sleep(0.002)
-        led20.drive_high()
-        sleep(0.002)
-        led21.drive_low()
-        sleep(0.002)
-        led20.drive_low()
-        sleep(0.002)

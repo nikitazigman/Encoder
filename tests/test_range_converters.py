@@ -19,7 +19,7 @@ class TestRangeConverter(unittest.TestCase):
 
     def test_half_range_converter(self):
         RangeConverter = range_converter_fabric(RangeType.minus_half_to_half)
-        range_converter: RangeConverterInterface = RangeConverterInterface[RangeConverter()]
+        range_converter: RangeConverterInterface = RangeConverter()
 
         for test in self.tested_dict:
             expected_position = (test['val'] % test['period'])

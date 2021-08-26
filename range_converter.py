@@ -17,7 +17,6 @@ class RangeConverterInterface(ABC):
         
 
 class MinusHalfToHAlfRange(RangeConverterInterface):
-
     def convert_range(self, value: int, period: int) -> int:
         value = super().convert_range(value, period)
         

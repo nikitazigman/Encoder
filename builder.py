@@ -15,9 +15,9 @@ class EncoderBuilder:
         self.settings = {
             "pin_a": pin_a,            
             "pin_b": pin_b,
-            "duration": duration, # ms
             "period": period,
         }
+        
         self._test = False
 
         self.range_type = RangeType.zero_to_period

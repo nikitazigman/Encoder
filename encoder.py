@@ -21,7 +21,6 @@ class EncoderData(BaseModel):
     value_converter: Type[ValueConveterInterface]
     pin_a: int
     pin_b: int
-    duration: float #sec
     period: int
     virtual: bool = False
     bounce_time: Union[float, None] = None #ms 

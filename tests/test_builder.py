@@ -3,7 +3,7 @@ import unittest
 from pydantic import ValidationError
 
 from builder import EncoderBuilder
-from encoder import Encoder
+from encoder import EncoderInterface
 from range_converter import MinusHalfToHAlfRange, ZeroToPeriodRange
 from value_converter import DegreeConverter, RadianConverter
 
@@ -25,7 +25,6 @@ class TestBuilder(unittest.TestCase):
 
         self.assertEqual(settings['pin_a'], self.settings['pin_a'])
         self.assertEqual(settings['pin_b'], self.settings['pin_b'])
-        self.assertEqual(settings['duration'], self.settings['duration'])
         self.assertEqual(settings['period'], self.settings['period'])
 
         self.assertTrue('ZeroToPeriodRange' in str(settings["range_converter"]))

@@ -38,7 +38,6 @@ class EncoderBuilder:
         self.encoder_data = EncoderData(**self.settings)
         
         if not self._test:
-            print(self._test)
             return Encoder(self.encoder_data)
 
     def get_encoder_settings(self) -> dict:

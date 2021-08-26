@@ -41,7 +41,7 @@ class TestBuilder(unittest.TestCase):
 
     def test_can_choose_value_type(self):
         builder = EncoderBuilder(**self.settings)
-        builder.set_value_type_radians()
+        builder.set_value_type(2)
         builder._test = True
 
         builder.get_encoder()
@@ -51,7 +51,7 @@ class TestBuilder(unittest.TestCase):
 
     def test_can_choose_range_type(self):
         builder = EncoderBuilder(**self.settings)
-        builder.set_range_type_half_to_half()
+        builder.set_range_type(1)
         builder._test = True
 
         builder.get_encoder()

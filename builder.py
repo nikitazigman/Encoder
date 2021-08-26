@@ -1,5 +1,11 @@
-from encoder import EncoderData, Encoder, EncoderInterface
-from fabrics import range_converter_fabric, value_converter_fabric, RangeType, ValueType
+from typing import Union
+
+if __package__:
+    from .encoder import EncoderData, Encoder, EncoderInterface
+    from .fabrics import range_converter_fabric, value_converter_fabric, RangeType, ValueType
+else:
+    from encoder import EncoderData, Encoder, EncoderInterface
+    from fabrics import range_converter_fabric, value_converter_fabric, RangeType, ValueType
 
 
 class EncoderBuilder:
@@ -17,17 +23,11 @@ class EncoderBuilder:
         self.range_type = RangeType.zero_to_period
         self.value_type = ValueType.degree
     
-    def set_range_type_zero_to_period(self):
-        self.range_type = RangeType.zero_to_period
+    def set_range_type(self, range_type: Union[RangeType, int]):
+        self.range_type = RangeType(range_type)
     
-    def set_range_type_half_to_half(self):
-        self.range_type = RangeType.minus_half_to_half
-
-    def set_value_type_degree(self):
-        self.value_type = ValueType.degree
-    
-    def set_value_type_radians(self):
-        self.value_type = ValueType.radians
+    def set_value_type(self, value_type: Union[ValueType, int]):
+        self.value_type = ValueType(value_type)
     
     def set_virtual(self):
         self.settings["virtual"] = True

@@ -1,6 +1,4 @@
 from abc import ABC, abstractmethod
-from time import time
-from threading import Event, Thread, Lock
 from typing import Union, Type
 
 from gpiozero import RotaryEncoder
@@ -58,8 +56,6 @@ class Encoder(EncoderInterface):
             self._pin_a, self._pin_b = encoder_data.pin_a, encoder_data.pin_b
         else: 
             self._pin_a, self._pin_b = encoder_data.pin_b, encoder_data.pin_a
-
-        self._lock = Lock()
 
         self._encoder = RotaryEncoder(
             self._pin_a, 

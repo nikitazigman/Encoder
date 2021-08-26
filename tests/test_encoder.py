@@ -6,7 +6,7 @@ from unittest.mock import patch, call
 
 from gpiozero.pins.mock import MockFactory, MockPin
 
-from encoder import Encoder, EncoderInterface, EncoderData
+from encoder import Encoder, EncoderData
 from fabrics import ValueType, RangeType, value_converter_fabric, range_converter_fabric
 
 
